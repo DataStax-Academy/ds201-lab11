@@ -8,7 +8,9 @@ tasks:
       --output environment.tar.gz
       tar xf environment.tar.gz
     command: | 
-      clear
+      ./node1/bin/cassandra
+      ./node3/bin/cassandra
+      ./node2/bin/cassandra      
 github:
   prebuilds:
     main: true
