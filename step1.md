@@ -22,50 +22,50 @@
 
 <div class="step-title">Configure the nodes</div>
 
-✅ Open `/workspace/ds201-lab11/node1/conf/cassandra.yaml` in a *nano* or the text editor of your choice and find the `endpoint_snitch` setting:
+The environment for this exercise consists of three cassandra nodes: *node1*, *node2* and *node3*
+
+✅ Open `/workspace/ds201-lab11/node1/conf/cassandra.yaml` in a *nano* or the text editor of your choice and view the `endpoint_snitch` setting:
+
 ```
 nano /workspace/ds201-lab11/node1/conf/cassandra.yaml
 ```
 
-The default snitch, *SimpleSnitch* is only appropriate for single datacenter deployments. 
-
-✅ Change the *endpoint_snitch* to *ReplicationingPropertyFileSnitch*, save and close the file.
+You should see *GossipingPropertyFileSnitch*. The default snitch, *SimpleSnitch* is only appropriate for single datacenter deployments. 
 
 ---
-**Note:** *ReplicationingPropertyFileSnitch* should be your go-to snitch for production use.  The rack and datacenter for the local node are defined in *cassandra-rackdc.properties* and propagated to other nodes via Replication.
+**Note:** *GossipingPropertyFileSnitch* should be your go-to snitch for production use.  The rack and datacenter for the local node are defined in *cassandra-rackdc.properties* and propagated to other nodes via Replication.
 
 ---
 
-✅ Make the same change to *node2*:
-```
-nano /workspace/ds201-lab11/node2/conf/cassandra.yaml
-```
+Verify that the `cassandra.yml` files for  *node2* and *node3* all use the same snitch.
 
-✅ Open `/workspace/ds201-lab11/node1/conf/cassandra-rackdc.properties` in a *nano* or the text editor of your choice and find the `endpoint_snitch` setting:
+
+✅ Open `/workspace/ds201-lab11/node1/conf/cassandra-rackdc.properties` in a *nano* or the text editor of your choice and find the `dc` and `rack` settings:
 ```
 nano /workspace/ds201-lab11/node1/conf/cassandra-rackdc.properties
 ```
-✅ Set the following values, then close and save the file:
+✅ You should see these values:
 
-`dc=dc-east`<br>
+`dc=dc-seattle`<br>
 `rack=rack-red`
 
 
-This is the file that the *ReplicationingPropertyFileSnitch* uses to determine the rack and data center this particular node belongs to.
+This is the file that the *GossipingPropertyFileSnitch* uses to determine the rack and data center this particular node belongs to.
 
 Racks and datacenters are purely logical assignments to Cassandra. You will want to ensure that your logical racks and data centers align with your physical failure zones.
 
+Examine `cassandra-rackdc.properties` for *node2* and *node3*.
 
-✅ Open `/workspace/ds201-lab11/node2/conf/cassandra-rackdc.properties`:
-```
-nano /workspace/ds201-lab11/node2/conf/cassandra-rackdc.properties
-```
-✅ Set the following values, then close and save the file:
+Properties for *node2* should be the same as for *node1*, they are in the same datacenter and on the same rack.
 
-`dc=dc-west`<br>
+`dc=dc-seattle`<br>
 `rack=rack-red`
 
-Although the rack names for the two nodes are the same, each rack lives independently in a different data center (dc-east vs. dc-west).
+Properties for *node3* should be different since it is in a different datacenter:
+
+`dc=dc-atlanta`<br>
+`rack=rack-green`
+
 
 ✅ Start *node1*:
 ```
@@ -80,12 +80,35 @@ Wait for *node1* to start.
 ```
 
 ✅ Check on the cluster status:
+
+<details class="katapod-details">
+  <summary>Solution</summary>
+
 ```
 /workspace/ds201-lab11/node2/bin/nodetool status
 ```
+
+</details>
+<br>
+
 You should now see that the nodes are in different datacenters.
 
-<img src="https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-image01.png" />
+```
+### {"execute": false}
+Datacenter: dc-atlanta
+=====================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving/Stopped
+--  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  127.0.0.3  646.5 KiB  128          66.9%             1e6f5265-2ecb-4740-907c-816f3df7d057  rack-green
+Datacenter: dc-seattle
+=====================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving/Stopped
+--  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  127.0.0.1  819.3 KiB  128          68.1%             f295016e-f130-401c-98f0-35b62468bb3e  rack-red
+UN  127.0.0.2  152.9 KiB  128          65.0%             76f73ce7-5597-4297-8670-9d2b27130404  rack-red
+```
 
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">
