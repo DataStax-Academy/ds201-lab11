@@ -13,7 +13,7 @@
   <div class="container px-4 py-2">
     <div class="row g-4 py-2 row-cols-1 row-cols-lg-1">
       <div class="feature col div-choice">
-        <div class="scenario-description">Replication</div>
+        <div class="scenario-description">Exercise 11: Replication</div>
           <ul>
             <li><span class="scenario-description-attribute">Difficulty</span>: Beginner</li>
             <li><span class="scenario-description-attribute">Time</span>: 10 minutes</li>
