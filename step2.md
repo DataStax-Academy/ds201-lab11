@@ -61,7 +61,7 @@ CREATE TABLE videos_by_tag (
     WITH CLUSTERING ORDER BY (added_date DESC, video_id ASC);
 
 COPY videos_by_tag(tag, video_id, added_date, title)
-FROM '/home/ubuntu/labwork/data-files/videos-by-tag.csv'
+FROM './data-files/videos-by-tag.csv'
 WITH HEADER=TRUE;
 ```
 

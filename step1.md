@@ -72,7 +72,7 @@ Properties for *node3* should be different since it is in a different datacenter
   <summary>Solution</summary>
 
 ```
-/workspace/ds201-lab11/node2/bin/nodetool status
+./node2/bin/nodetool status
 ```
 
 </details>
