@@ -13,7 +13,7 @@
    class="btn btn-dark navigation-top-left">⬅️ Back
  </a>
 <span class="step-count"> Step 1 of 2</span>
- <a href='command:katapod.loadPage?[{"step":"step3"}]' 
+ <a href='command:katapod.loadPage?[{"step":"step2"}]' 
     class="btn btn-dark navigation-top-right">Next ➡️
   </a>
 </div>
@@ -115,7 +115,7 @@ UN  127.0.0.2  152.9 KiB  128          65.0%             76f73ce7-5597-4297-8670
  <a href='command:katapod.loadPage?[{"step":"intro"}]'
    class="btn btn-dark navigation-bottom-left">⬅️ Back
  </a>
-  <a href='command:katapod.loadPage?[{"step":"step3"}]' 
+  <a href='command:katapod.loadPage?[{"step":"step2"}]' 
     class="btn btn-dark navigation-top-right">Next ➡️
   </a>
 </div>

@@ -9,84 +9,84 @@
 
 <!-- NAVIGATION -->
 <div id="navigation-top" class="navigation-top">
- <a href='command:katapod.loadPage?[{"step":"intro"}]'
+ <a href='command:katapod.loadPage?[{"step":"step2"}]'
    class="btn btn-dark navigation-top-left">⬅️ Back
  </a>
 <span class="step-count"> Step 2 of 2</span>
+ <a href='command:katapod.loadPage?[{"step":"finish"}]' 
+    class="btn btn-dark navigation-top-right">Next ➡️
+  </a>
+
 </div>
 
 <!-- CONTENT -->
 
 <div class="step-title">Configure the nodes</div>
 
-✅ Open `/workspace/ds201-lab11/node1/conf/cassandra.yaml` in a *nano* or the text editor of your choice and find the `endpoint_snitch` setting:
+✅ Start *cqlsh*
 ```
-nano /workspace/ds201-lab11/node1/conf/cassandra.yaml
-```
-
-The default snitch, *SimpleSnitch* is only appropriate for single datacenter deployments. 
-
-✅ Change the *endpoint_snitch* to *ReplicationingPropertyFileSnitch*, save and close the file.
-
----
-**Note:** *ReplicationingPropertyFileSnitch* should be your go-to snitch for production use.  The rack and datacenter for the local node are defined in *cassandra-rackdc.properties* and propagated to other nodes via Replication.
-
----
-
-✅ Make the same change to *node2*:
-```
-nano /workspace/ds201-lab11/node2/conf/cassandra.yaml
+./node1/bin/cqlsh
 ```
 
-✅ Open `/workspace/ds201-lab11/node1/conf/cassandra-rackdc.properties` in a *nano* or the text editor of your choice and find the `endpoint_snitch` setting:
-```
-nano /workspace/ds201-lab11/node1/conf/cassandra-rackdc.properties
-```
-✅ Set the following values, then close and save the file:
+✅ Execute the following statements to create a keyspace with the *NetworkTopologyStrategy* that will store one replica per data center:
 
-`dc=dc-east`<br>
-`rack=rack-red`
-
-
-This is the file that the *ReplicationingPropertyFileSnitch* uses to determine the rack and data center this particular node belongs to.
-
-Racks and datacenters are purely logical assignments to Cassandra. You will want to ensure that your logical racks and data centers align with your physical failure zones.
-
-
-✅ Open `/workspace/ds201-lab11/node2/conf/cassandra-rackdc.properties`:
-```
-nano /workspace/ds201-lab11/node2/conf/cassandra-rackdc.properties
-```
-✅ Set the following values, then close and save the file:
-
-`dc=dc-west`<br>
-`rack=rack-red`
-
-Although the rack names for the two nodes are the same, each rack lives independently in a different data center (dc-east vs. dc-west).
-
-✅ Start *node1*:
-```
-/workspace/ds201-lab11/node1/bin/cassandra
+```cql
+CREATE KEYSPACE killrvideo WITH replication = {
+  'class': 'NetworkTopologyStrategy', 
+  'dc-seattle': 1,'dc-atlanta': 1
+};
 ```
 
-Wait for *node1* to start.
+✅ Switch to the *killrvideo* keyspace:
 
-✅ Start *node2*:
-```
-/workspace/ds201-lab11/node2/bin/cassandra
+<details class="katapod-details">
+  <summary>Solution</summary>
+
+```cql
+USE killrvideo;
 ```
 
-✅ Check on the cluster status:
-```
-/workspace/ds201-lab11/node2/bin/nodetool status
-```
-You should now see that the nodes are in different datacenters.
+</details>
+<br>
 
-<img src="https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-image01.png" />
+✅ Execute the following commands to re-create the *videos_by_tag* table and re-import the data:
+
+```cql
+CREATE TABLE videos_by_tag (
+    tag text,
+    video_id uuid,
+    added_date timestamp,
+    title text,
+    PRIMARY KEY ((tag), added_date, video_id))
+    WITH CLUSTERING ORDER BY (added_date DESC, video_id ASC);
+
+COPY videos_by_tag(tag, video_id, added_date, title)
+FROM '/home/ubuntu/labwork/data-files/videos-by-tag.csv'
+WITH HEADER=TRUE;
+```
+
+✅ Exit *cqlsh*
+```
+QUIT
+```
+
+✅ Execute the following commands to determine which nodes the partition replicas reside on:
+
+```cql
+./node1/bin/nodetool getendpoints killrvideo videos_by_tag 'cassandra'
+
+./node1/bin/nodetool getendpoints killrvideo videos_by_tag 'datastax'
+```
+
+You’ll be able to see the replicas nodes, represented by their IP addresses.
 
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">
- <a href='command:katapod.loadPage?[{"step":"intro"}]'
+ <a href='command:katapod.loadPage?[{"step":"step2"}]'
    class="btn btn-dark navigation-bottom-left">⬅️ Back
  </a>
+  <a href='command:katapod.loadPage?[{"step":"finish"}]' 
+    class="btn btn-dark navigation-top-right">Next ➡️
+  </a>
+
 </div>

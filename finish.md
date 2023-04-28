@@ -2,7 +2,7 @@
 <div class="top">
   <img class="scenario-academy-logo" src="https://datastax-academy.github.io/katapod-shared-assets/images/ds-academy-2023.svg" />
   <div class="scenario-title-section">
-    <span class="scenario-title">Snitches</span>
+    <span class="scenario-title">Replication</span>
     <span class="scenario-subtitle">ℹ️ For technical support, please contact us via <a href="mailto:acadamy@datastax.com">email</a>.</span> 
   </div>
 </div>
@@ -24,8 +24,9 @@
           <br/>
           <div class="scenario-objectives">In this hands-on lab, you learned how to:</div>
             <ul>
-              <li><span class="scenario-objective">Configure your Apache Cassandra™ nodes to use a different snitch</span></li>
-              <li><span class="scenario-objective">Set up your Cassandra nodes to reside in two different datacenters</span></li>
+              <li><span class="scenario-objective">Add a third node to the Cassandra cluster</span></li>
+              <li><span class="scenario-objective">Re-create the <i>killrvideo</i> keyspace using the <code>NetworkTopologyStrategy</code></span></li>              
+              <li><span class="scenario-objective">Use <i>nodetool</i> to determine where partition replicas can be found</span></li>
             </ul>
         </div>
       </div>
