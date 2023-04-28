@@ -66,19 +66,6 @@ Properties for *node3* should be different since it is in a different datacenter
 `dc=dc-atlanta`<br>
 `rack=rack-green`
 
-
-✅ Start *node1*:
-```
-/workspace/ds201-lab11/node1/bin/cassandra
-```
-
-Wait for *node1* to start.
-
-✅ Start *node2*:
-```
-/workspace/ds201-lab11/node2/bin/cassandra
-```
-
 ✅ Check on the cluster status:
 
 <details class="katapod-details">
