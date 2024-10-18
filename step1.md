@@ -80,22 +80,7 @@ nodetool status
 
 You should now see that the nodes are in different datacenters.
 
-```
-### {"execute": false}
-Datacenter: dc-atlanta
-=====================
-Status=Up/Down
-|/ State=Normal/Leaving/Joining/Moving/Stopped
---  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
-UN  127.0.0.3  646.5 KiB  128          66.9%             1e6f5265-2ecb-4740-907c-816f3df7d057  rack-green
-Datacenter: dc-seattle
-=====================
-Status=Up/Down
-|/ State=Normal/Leaving/Joining/Moving/Stopped
---  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
-UN  127.0.0.1  819.3 KiB  128          68.1%             f295016e-f130-401c-98f0-35b62468bb3e  rack-red
-UN  127.0.0.2  152.9 KiB  128          65.0%             76f73ce7-5597-4297-8670-9d2b27130404  rack-red
-```
+<img src="https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-image01.png" />
 
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">
