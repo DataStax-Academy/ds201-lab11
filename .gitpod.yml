@@ -4,7 +4,7 @@ tasks:
     before: |
       printf 'unset JAVA_TOOL_OPTIONS\n' >> $HOME/.bashrc
     init: |
-      curl https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab10-environment.tar.gz \
+      curl https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-environment.tar.gz \
       --output environment.tar.gz
       tar xf environment.tar.gz
     command: | 
