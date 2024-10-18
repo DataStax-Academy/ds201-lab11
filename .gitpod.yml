@@ -3,7 +3,7 @@ tasks:
   - name: install-dependencies
     before: |
       printf 'unset JAVA_TOOL_OPTIONS\n' >> $HOME/.bashrc
-      printf 'export PATH="$HOME/node1/bin:$PATH"' >> $HOME/.bashrc
+      printf 'export PATH="/workspace/ds201-lab11/node1/bin:$PATH"' >> $HOME/.bashrc
     init: |
       curl https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-environment.tar.gz \
       --output environment.tar.gz

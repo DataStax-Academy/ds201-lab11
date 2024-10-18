@@ -25,7 +25,7 @@
 
 ✅ Start *cqlsh*
 ```
-./node1/bin/cqlsh
+cqlsh
 ```
 
 ✅ Execute the following statements to create a keyspace with the *NetworkTopologyStrategy* that will store one replica per data center:
@@ -73,9 +73,9 @@ QUIT
 ✅ Execute the following commands to determine which nodes the partition replicas reside on:
 
 ```cql
-./node1/bin/nodetool getendpoints killrvideo videos_by_tag 'cassandra'
+nodetool getendpoints killrvideo videos_by_tag 'cassandra'
 
-./node1/bin/nodetool getendpoints killrvideo videos_by_tag 'datastax'
+nodetool getendpoints killrvideo videos_by_tag 'datastax'
 ```
 
 You’ll be able to see the replicas nodes, represented by their IP addresses.
