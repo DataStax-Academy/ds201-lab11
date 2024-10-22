@@ -80,6 +80,10 @@ nodetool getendpoints killrvideo videos_by_tag 'datastax'
 
 You’ll be able to see the replicas nodes, represented by their IP addresses.
 
+Datacenter `dc-seattle` contains `127.0.0.1` and `127.0.0.2`. Datacenter `dc-atlanta` contains `127.0.0.3`.  
+
+<img src="https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-image02.png" />
+
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">
  <a href='command:katapod.loadPage?[{"step":"step1"}]'
