@@ -93,7 +93,3 @@ Datacenter `dc-seattle` contains `127.0.0.1` and `127.0.0.2`. Datacenter `dc-atl
     class="btn btn-dark navigation-top-right">Next ➡️
   </a>
 </div>
-
-Datacenter `dc-seattle` contains `127.0.0.1` and `127.0.0.2`. Datacenter `dc-atlanta` contains `127.0.0.3`.  
-
-<img src="https://katapod-file-store.s3.us-west-1.amazonaws.com/ds201/lab11-image02.png" />
